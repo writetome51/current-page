@@ -2,16 +2,20 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var not_1 = require("@writetome51/not");
 /**********************
- This class loads a 'page' of data into memory.
- It supports the breaking of the full dataset into batches in case it's too big to load
- all at once.by first
- loading the batch (array) of data that will
- contain that page, then setting the paginator's current page to that page.
+ This class is intended to be used with a separate Paginator class.
+ It loads a 'page' of data into memory.
+ It supports the breaking of the full dataset (the data to be paginated) into batches
+ in case it's too big to load entirely (a batch is defined as the total amount of
+ data the Paginator can handle at once). The objects passed into the constructor
+ make this possible.
  *********************/
 var PageLoader = /** @class */ (function () {
-    function PageLoader(__batchInfo, __batchPaginator, // Acts as the batch container.
-    __bch2pgTranslator, __batchLoader // directly accesses the data source.
-    ) {
+    function PageLoader(__batchInfo, 
+    // `__batchPaginator` must hold a reference to the currently loaded batch.  Setting its
+    // `currentPageNumber` should automatically update the page it currently shows.
+    __batchPaginator, __bch2pgTranslator, 
+    // `__batchLoader` accesses the data source.
+    __batchLoader) {
         this.__batchInfo = __batchInfo;
         this.__batchPaginator = __batchPaginator;
         this.__bch2pgTranslator = __bch2pgTranslator;

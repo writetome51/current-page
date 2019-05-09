@@ -1,12 +1,14 @@
-import { BatchLoader } from '@writetome51/batch-loader';
 import { BatchToPageTranslator } from '@writetome51/batch-to-page-translator';
 
 
 /**********************
- This class loads a 'page' of data by first loading the batch (array) of data that will
- contain that page, then setting the batchPaginator's current page to that page.
+ This class is intended to be used with a separate Paginator class.
+ It loads a 'page' of data into memory.
+ It supports the breaking of the full dataset (the data to be paginated) into batches
+ in case it's too big to load entirely (a batch is defined as the total amount of
+ data the Paginator can handle at once). The objects passed into the constructor
+ make this possible.
  *********************/
-
 
 export declare class PageLoader {
 
@@ -22,15 +24,17 @@ export declare class PageLoader {
 		},
 		__batchPaginator: {
 			currentPageNumber: number;
-		}, // Acts as the batch container.
+		},
 		__bch2pgTranslator: BatchToPageTranslator,
-		__batchLoader: BatchLoader
+		__batchLoader: {
+			loadBatchContainingPage: (pageNumber: number) => void;
+		}
 	);
 
 
-	loadPage(pageNumber: any): void;
+	loadPage(pageNumber: number): void;
 
 
-	reloadPage(pageNumber: any): void;
+	reloadPage(pageNumber: number): void;
 
 }
