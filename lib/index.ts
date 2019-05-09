@@ -4,8 +4,11 @@ import { not } from '@writetome51/not';
 
 
 /**********************
- This class loads a 'page' of data by first loading the batch (array) of data that will
- contain that page, then setting the batchPaginator's current page to that page.
+ This class loads a 'page' of data into memory.
+ It supports the breaking of the full dataset into batches in case it's too big to load
+ all at once.by first
+ loading the batch (array) of data that will
+ contain that page, then setting the paginator's current page to that page.
  *********************/
 
 
@@ -18,10 +21,7 @@ export class PageLoader {
 
 		private __bch2pgTranslator: BatchToPageTranslator,
 
-		// `__batchLoader` is needed just in case the entire dataset is too big to be handled by
-		// this.__batchPaginator all at once.  It directly accesses the data source.
-
-		private __batchLoader: BatchLoader
+		private __batchLoader: BatchLoader // directly accesses the data source.
 	) {
 	}
 
