@@ -1,5 +1,6 @@
 import { BatchToPageTranslator } from '@writetome51/batch-to-page-translator';
 import { not } from '@writetome51/not';
+import { setArray } from '@writetome51/set-array';
 
 
 /**********************
@@ -7,8 +8,7 @@ import { not } from '@writetome51/not';
  It loads a 'page' of data into memory.
  It supports the breaking of the full dataset (the data to be paginated) into batches
  in case it's too big to load entirely (a batch is defined as the total amount of
- data the Paginator can handle at once). The objects passed into the constructor
- make this possible.
+ data the Paginator can handle at once).
  *********************/
 
 
@@ -16,37 +16,48 @@ export class PageLoader {
 
 
 	constructor(
-		private __batchInfo: { currentBatchNumber: number | undefined },
 
-		// `__batchPaginator` must hold a reference to the currently loaded batch.  Setting its
-		// `currentPageNumber` should automatically update the page it currently shows.
+		// Setting its  `currentPageNumber` must automatically update its `currentPage`.
 
-		private __batchPaginator: { currentPageNumber: number },
+		private __batchPaginator: { currentPageNumber: number, currentPage: any[], data: any[] },
 
 		private __bch2pgTranslator: BatchToPageTranslator,
 
-		// `__batchLoader` accesses the data source.
+		// `__getBatch` accesses the data source.
 
-		private __batchLoader: { loadBatchContainingPage: (pageNumber) => void }
-	) {
+		private __getBatch: {
+			containingPage(pageNumber): any[],
+
+			// This must load the batch containing `pageNumber` even if that batch is already
+			// currently loaded.
+
+			byForce_containingPage(pageNumber): any[]
+		 }
+	) {}
+
+
+	get loadedPage(): any[] {
+		return this.__batchPaginator.currentPage;
 	}
 
 
 	loadPage(pageNumber): void {
-		if (not(this.__bch2pgTranslator.currentBatchContainsPage(pageNumber))) {
-			this.__batchLoader.loadBatchContainingPage(pageNumber);
-		}
-
-		this.__batchPaginator.currentPageNumber =
-			this.__bch2pgTranslator.getPageNumberInCurrentBatchFromAbsolutePage(pageNumber);
+		let batch = this.__getBatch.containingPage(pageNumber);
+		this.__set_loadedPage_fromBatch(batch, pageNumber);
 	}
 
 
-	reloadPage(pageNumber): void {
-		// This forces this.loadPage() to reload the batch containing pageNumber.
-		this.__batchInfo.currentBatchNumber = undefined;
+	forceLoadPage(pageNumber): void {
+		let batch = this.__getBatch.byForce_containingPage(pageNumber);
+		this.__set_loadedPage_fromBatch(batch, pageNumber);
+	}
 
-		this.loadPage(pageNumber);
+
+	private __set_loadedPage_fromBatch(batch, pageNumber) {
+		setArray(this.__batchPaginator.data,  batch);
+
+		this.__batchPaginator.currentPageNumber =
+			this.__bch2pgTranslator.getPageNumberInCurrentBatchFromAbsolutePage(pageNumber);
 	}
 
 

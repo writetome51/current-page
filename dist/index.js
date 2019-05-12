@@ -1,37 +1,42 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var not_1 = require("@writetome51/not");
+var set_array_1 = require("@writetome51/set-array");
 /**********************
  This class is intended to be used with a separate Paginator class.
  It loads a 'page' of data into memory.
  It supports the breaking of the full dataset (the data to be paginated) into batches
  in case it's too big to load entirely (a batch is defined as the total amount of
- data the Paginator can handle at once). The objects passed into the constructor
- make this possible.
+ data the Paginator can handle at once).
  *********************/
 var PageLoader = /** @class */ (function () {
-    function PageLoader(__batchInfo, 
-    // `__batchPaginator` must hold a reference to the currently loaded batch.  Setting its
-    // `currentPageNumber` should automatically update the page it currently shows.
+    function PageLoader(
+    // Setting its  `currentPageNumber` must automatically update its `currentPage`.
     __batchPaginator, __bch2pgTranslator, 
-    // `__batchLoader` accesses the data source.
-    __batchLoader) {
-        this.__batchInfo = __batchInfo;
+    // `__getBatch` accesses the data source.
+    __getBatch) {
         this.__batchPaginator = __batchPaginator;
         this.__bch2pgTranslator = __bch2pgTranslator;
-        this.__batchLoader = __batchLoader;
+        this.__getBatch = __getBatch;
     }
+    Object.defineProperty(PageLoader.prototype, "loadedPage", {
+        get: function () {
+            return this.__batchPaginator.currentPage;
+        },
+        enumerable: true,
+        configurable: true
+    });
     PageLoader.prototype.loadPage = function (pageNumber) {
-        if (not_1.not(this.__bch2pgTranslator.currentBatchContainsPage(pageNumber))) {
-            this.__batchLoader.loadBatchContainingPage(pageNumber);
-        }
+        var batch = this.__getBatch.containingPage(pageNumber);
+        this.__set_loadedPage_fromBatch(batch, pageNumber);
+    };
+    PageLoader.prototype.forceLoadPage = function (pageNumber) {
+        var batch = this.__getBatch.byForce_containingPage(pageNumber);
+        this.__set_loadedPage_fromBatch(batch, pageNumber);
+    };
+    PageLoader.prototype.__set_loadedPage_fromBatch = function (batch, pageNumber) {
+        set_array_1.setArray(this.__batchPaginator.data, batch);
         this.__batchPaginator.currentPageNumber =
             this.__bch2pgTranslator.getPageNumberInCurrentBatchFromAbsolutePage(pageNumber);
-    };
-    PageLoader.prototype.reloadPage = function (pageNumber) {
-        // This forces this.loadPage() to reload the batch containing pageNumber.
-        this.__batchInfo.currentBatchNumber = undefined;
-        this.loadPage(pageNumber);
     };
     return PageLoader;
 }());
