@@ -1,6 +1,6 @@
 {
   "name": "@writetome51/page-loader",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A TypeScript/Javascript class intended to be used with a separate Paginator class.  It loads a page (array) of data into memory",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

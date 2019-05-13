@@ -49,12 +49,12 @@ loadedPage: any[] // read-only
 
 ```ts
 loadPage(pageNumber): void
-    // Loads the batch containing pageNumber, and pageNumber is assigned to
+    // Loads the batch containing pageNumber, and the page is assigned to
     // this.loadedPage
 
 forceLoadPage(pageNumber): void
     // Even if pageNumber is already the page currently being viewed, the 
-    // batch containing that page is reloaded, and pageNumber is assigned to 
+    // batch containing that page is reloaded, and the page is assigned to 
     // this.loadedPage
 ```
 </details>
