@@ -6,28 +6,29 @@ import { BatchToPageTranslator } from '@writetome51/batch-to-page-translator';
  It loads a 'page' of data into memory.
  It supports the breaking of the full dataset (the data to be paginated) into batches
  in case it's too big to load entirely (a batch is defined as the total amount of
- data the Paginator can handle at once). The objects passed into the constructor
- make this possible.
+ data the Paginator can handle at once).
  *********************/
+
 
 export declare class PageLoader {
 
-	private __batchInfo;
+	readonly loadedPage: any[];
+
 	private __batchPaginator;
 	private __bch2pgTranslator;
-	private __batchLoader;
+	private __getBatch;
 
 
 	constructor(
-		__batchInfo: {
-			currentBatchNumber: number | undefined;
-		},
 		__batchPaginator: {
 			currentPageNumber: number;
+			currentPage: any[];
+			data: any[];
 		},
 		__bch2pgTranslator: BatchToPageTranslator,
-		__batchLoader: {
-			loadBatchContainingPage: (pageNumber: number) => void;
+		__getBatch: {
+			containingPage: (pageNumber: number) => any[];
+			byForce_containingPage: (pageNumber: number) => any[];
 		}
 	);
 
@@ -35,6 +36,9 @@ export declare class PageLoader {
 	loadPage(pageNumber: number): void;
 
 
-	reloadPage(pageNumber: number): void;
+	forceLoadPage(pageNumber: number): void;
+
+
+	private __set_loadedPage_fromBatch;
 
 }

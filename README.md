@@ -14,21 +14,33 @@ make this possible.
 
 ```ts
 constructor(
-    batchInfo: { currentBatchNumber: number | undefined },
- 
-    batchPaginator: { currentPageNumber: number },
-        // This must hold a reference to the currently loaded batch.  Setting its
-        // `currentPageNumber` should automatically update the page it currently shows.
+   
+    batchPaginator: { currentPageNumber: number, currentPage: any[], data: any[] },
+        // Setting its  `currentPageNumber` must automatically update its `currentPage`.
  
     bch2pgTranslator: BatchToPageTranslator,
         // Automatically included as a dependency.
         // https://www.npmjs.com/package/@writetome51/batch-to-page-translator
  
-    batchLoader: { loadBatchContainingPage: (pageNumber) => void }
+    getBatch: {
         // Accesses the data source.
+        
+        containingPage: (pageNumber) => any[];
+        
+        byForce_containingPage: (pageNumber) => any[];
+            // This must load the batch containing `pageNumber` even if that batch is 
+            // already currently loaded.
+    }
 ) 
 ```
 </details>
+
+
+## Properties
+```
+loadedPage: any[] // read-only
+    // All items in the loaded page.
+```
 
 
 ## Methods
@@ -38,12 +50,12 @@ constructor(
 ```ts
 loadPage(pageNumber): void
     // Loads the batch containing pageNumber, and pageNumber is assigned to
-    // `batchPaginator.currentPageNumber` (from the constructor).
+    // this.loadedPage
 
-reloadPage(pageNumber): void
-    // This forces the data to refresh.  Even if pageNumber is already
-    // the page currently being viewed, the batch containing that page
-    // is reloaded, and pageNumber is assigned to `batchPaginator.currentPageNumber`
+forceLoadPage(pageNumber): void
+    // Even if pageNumber is already the page currently being viewed, the 
+    // batch containing that page is reloaded, and pageNumber is assigned to 
+    // this.loadedPage
 ```
 </details>
 

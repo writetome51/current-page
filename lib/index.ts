@@ -26,12 +26,12 @@ export class PageLoader {
 		// `__getBatch` accesses the data source.
 
 		private __getBatch: {
-			containingPage(pageNumber): any[],
+			containingPage: (pageNumber) => any[];
 
 			// This must load the batch containing `pageNumber` even if that batch is already
 			// currently loaded.
 
-			byForce_containingPage(pageNumber): any[]
+			byForce_containingPage: (pageNumber) => any[];
 		 }
 	) {}
 
@@ -53,7 +53,7 @@ export class PageLoader {
 	}
 
 
-	private __set_loadedPage_fromBatch(batch, pageNumber) {
+	private __set_loadedPage_fromBatch(batch: any[], pageNumber) {
 		setArray(this.__batchPaginator.data,  batch);
 
 		this.__batchPaginator.currentPageNumber =
