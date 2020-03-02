@@ -19,15 +19,15 @@ constructor(
         // Setting its  `currentPageNumber` must automatically update its `currentPage`.
  
     bch2pgTranslator: BatchToPageTranslator,
-        // Automatically included as a dependency.
+        // Automatically installed with this package.
         // https://www.npmjs.com/package/@writetome51/batch-to-page-translator
  
     getBatch: {
         // Accesses the data source.
         
-        containingPage: (pageNumber) => any[];
+        containingPage: (pageNumber) => Promise<any[]>;
         
-        byForce_containingPage: (pageNumber) => any[];
+        byForce_containingPage: (pageNumber) => Promise<any[]>;
             // This must load the batch containing `pageNumber` even if that batch is 
             // already currently loaded.
     }
@@ -37,7 +37,7 @@ constructor(
 
 
 ## Properties
-```
+```ts
 loadedPage: any[] // read-only
     // All items in the loaded page.
 ```
@@ -48,11 +48,11 @@ loadedPage: any[] // read-only
 <summary>view methods</summary>
 
 ```ts
-loadPage(pageNumber): void
+async loadPage(pageNumber): Promise<void>
     // Loads the batch containing pageNumber, and the page is assigned to
     // this.loadedPage
 
-forceLoadPage(pageNumber): void
+async forceLoadPage(pageNumber): Promise<void>
     // Even if pageNumber is already the page currently being viewed, the 
     // batch containing that page is reloaded, and the page is assigned to 
     // this.loadedPage

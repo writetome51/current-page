@@ -8,8 +8,6 @@ import { BatchToPageTranslator } from '@writetome51/batch-to-page-translator';
  in case it's too big to load entirely (a batch is defined as the total amount of
  data the Paginator can handle at once).
  *********************/
-
-
 export declare class PageLoader {
 
 	readonly loadedPage: any[];
@@ -25,18 +23,20 @@ export declare class PageLoader {
 			currentPage: any[];
 			data: any[];
 		},
+
 		__bch2pgTranslator: BatchToPageTranslator,
+
 		__getBatch: {
-			containingPage: (pageNumber: number) => any[];
-			byForce_containingPage: (pageNumber: number) => any[];
+			containingPage: (pageNumber: number) => Promise<any[]>;
+			byForce_containingPage: (pageNumber: number) => Promise<any[]>;
 		}
 	);
 
 
-	loadPage(pageNumber: number): void;
+	loadPage(pageNumber: number): Promise<void>;
 
 
-	forceLoadPage(pageNumber: number): void;
+	forceLoadPage(pageNumber: number): Promise<void>;
 
 
 	private __set_loadedPage_fromBatch;
