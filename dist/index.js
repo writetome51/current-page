@@ -23,13 +23,17 @@ class CurrentPage {
     }
     set(pageNumber) {
         return __awaiter(this, void 0, void 0, function* () {
-            let load = yield this.__pageLoadAccess.containingPage(pageNumber);
-            this.__setPage_fromLoad(load, pageNumber);
+            yield this.__getLoadAndSetPage(this.__pageLoadAccess.containingPage, pageNumber);
         });
     }
     reset(pageNumber) {
         return __awaiter(this, void 0, void 0, function* () {
-            let load = yield this.__pageLoadAccess.byForce_containingPage(pageNumber);
+            yield this.__getLoadAndSetPage(this.__pageLoadAccess.byForce_containingPage, pageNumber);
+        });
+    }
+    __getLoadAndSetPage(getLoad, pageNumber) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let load = yield getLoad(pageNumber);
             this.__setPage_fromLoad(load, pageNumber);
         });
     }

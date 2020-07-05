@@ -4,7 +4,6 @@ import { setArray } from '@writetome51/set-array';
 
 // Intended to help a separate Paginator paginate data that can't all be stored in memory at once.
 
-
 export class CurrentPage {
 
 	private __data = [];
@@ -36,13 +35,20 @@ export class CurrentPage {
 
 
 	async set(pageNumber): Promise<void> {
-		let load = await this.__pageLoadAccess.containingPage(pageNumber);
-		this.__setPage_fromLoad(load, pageNumber);
+		await this.__getLoadAndSetPage(this.__pageLoadAccess.containingPage, pageNumber);
 	}
 
 
 	async reset(pageNumber): Promise<void> {
-		let load = await this.__pageLoadAccess.byForce_containingPage(pageNumber);
+		await this.__getLoadAndSetPage(this.__pageLoadAccess.byForce_containingPage, pageNumber);
+	}
+
+
+	private async __getLoadAndSetPage(
+		getLoad: (pageNumber) => Promise<any[]>,
+		pageNumber
+	) {
+		let load = await getLoad(pageNumber);
 		this.__setPage_fromLoad(load, pageNumber);
 	}
 
