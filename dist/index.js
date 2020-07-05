@@ -10,42 +10,33 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const set_array_1 = require("@writetome51/set-array");
-/**********************
- This class is intended to be used with a separate Paginator class.
- It loads a 'page' of data into memory.
- It supports the breaking of the full dataset (the data to be paginated) into batches
- in case it's too big to load entirely (a batch is defined as the total amount of
- data the Paginator can handle at once).
- *********************/
-class PageLoader {
-    constructor(
-    // Setting its  `currentPageNumber` must automatically update its `currentPage`.
-    __batchPaginator, __bch2pgTranslator, 
-    // `__getBatch` accesses the data source.
-    __getBatch) {
-        this.__batchPaginator = __batchPaginator;
-        this.__bch2pgTranslator = __bch2pgTranslator;
-        this.__getBatch = __getBatch;
+// Intended to help a separate Paginator paginate data that can't all be stored in memory at once.
+class CurrentPage {
+    constructor(__loadPaginator, __load2pgTranslator, __pageLoadAccess) {
+        this.__loadPaginator = __loadPaginator;
+        this.__load2pgTranslator = __load2pgTranslator;
+        this.__pageLoadAccess = __pageLoadAccess;
+        this.__data = [];
     }
-    get loadedPage() {
-        return this.__batchPaginator.currentPage;
+    get() {
+        return this.__data;
     }
-    loadPage(pageNumber) {
+    set(pageNumber) {
         return __awaiter(this, void 0, void 0, function* () {
-            let batch = yield this.__getBatch.containingPage(pageNumber);
-            this.__set_loadedPage_fromBatch(batch, pageNumber);
+            let load = yield this.__pageLoadAccess.containingPage(pageNumber);
+            this.__setPage_fromLoad(load, pageNumber);
         });
     }
-    forceLoadPage(pageNumber) {
+    reset(pageNumber) {
         return __awaiter(this, void 0, void 0, function* () {
-            let batch = yield this.__getBatch.byForce_containingPage(pageNumber);
-            this.__set_loadedPage_fromBatch(batch, pageNumber);
+            let load = yield this.__pageLoadAccess.byForce_containingPage(pageNumber);
+            this.__setPage_fromLoad(load, pageNumber);
         });
     }
-    __set_loadedPage_fromBatch(batch, pageNumber) {
-        set_array_1.setArray(this.__batchPaginator.data, batch);
-        this.__batchPaginator.currentPageNumber =
-            this.__bch2pgTranslator.getPageNumberInCurrentBatchFromAbsolutePage(pageNumber);
+    __setPage_fromLoad(load, pageNumber) {
+        set_array_1.setArray(this.__loadPaginator.data, load);
+        pageNumber = this.__load2pgTranslator.getPageNumberInLoadFromAbsolutePage(pageNumber);
+        this.__data = this.__loadPaginator.getPage(pageNumber);
     }
 }
-exports.PageLoader = PageLoader;
+exports.CurrentPage = CurrentPage;

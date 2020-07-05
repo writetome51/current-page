@@ -1,62 +1,57 @@
-import { BatchToPageTranslator } from '@writetome51/batch-to-page-translator';
+import { LoadToPageTranslator } from '@writetome51/load-to-page-translator';
 import { setArray } from '@writetome51/set-array';
 
 
-/**********************
- This class is intended to be used with a separate Paginator class.
- It loads a 'page' of data into memory.
- It supports the breaking of the full dataset (the data to be paginated) into batches
- in case it's too big to load entirely (a batch is defined as the total amount of
- data the Paginator can handle at once).
- *********************/
+// Intended to help a separate Paginator paginate data that can't all be stored in memory at once.
 
 
-export class PageLoader {
+export class CurrentPage {
+
+	private __data = [];
 
 
 	constructor(
+		private __loadPaginator: {
+			getPage: (pageNumber) => any[],
 
-		// Setting its  `currentPageNumber` must automatically update its `currentPage`.
+			data: any[]
+		},
+		private __load2pgTranslator: LoadToPageTranslator,
 
-		private __batchPaginator: { currentPageNumber: number, currentPage: any[], data: any[] },
-
-		private __bch2pgTranslator: BatchToPageTranslator,
-
-		// `__getBatch` accesses the data source.
-
-		private __getBatch: {
+		private __pageLoadAccess: {
 			containingPage: (pageNumber) => Promise<any[]>;
 
-			// This must load the batch containing `pageNumber` even if that batch is already
+			// This must load the load containing `pageNumber` even if that load is already
 			// currently loaded.
 
 			byForce_containingPage: (pageNumber) => Promise<any[]>;
-		 }
-	) {}
-
-
-	get loadedPage(): any[] {
-		return this.__batchPaginator.currentPage;
+		}
+	) {
 	}
 
 
-	async loadPage(pageNumber): Promise<void> {
-		let batch = await this.__getBatch.containingPage(pageNumber);
-		this.__set_loadedPage_fromBatch(batch, pageNumber);
+	get(): any[] {
+		return this.__data;
 	}
 
 
-	async forceLoadPage(pageNumber): Promise<void> {
-		let batch = await this.__getBatch.byForce_containingPage(pageNumber);
-		this.__set_loadedPage_fromBatch(batch, pageNumber);
+	async set(pageNumber): Promise<void> {
+		let load = await this.__pageLoadAccess.containingPage(pageNumber);
+		this.__setPage_fromLoad(load, pageNumber);
 	}
 
 
-	private __set_loadedPage_fromBatch(batch: any[], pageNumber): void {
-		setArray(this.__batchPaginator.data,  batch);
+	async reset(pageNumber): Promise<void> {
+		let load = await this.__pageLoadAccess.byForce_containingPage(pageNumber);
+		this.__setPage_fromLoad(load, pageNumber);
+	}
 
-		this.__batchPaginator.currentPageNumber =
-			this.__bch2pgTranslator.getPageNumberInCurrentBatchFromAbsolutePage(pageNumber);
+
+	private __setPage_fromLoad(load: any[], pageNumber): void {
+		setArray(this.__loadPaginator.data, load);
+		pageNumber = this.__load2pgTranslator.getPageNumberInLoadFromAbsolutePage(pageNumber);
+
+		this.__data = this.__loadPaginator.getPage(pageNumber);
 	}
 
 

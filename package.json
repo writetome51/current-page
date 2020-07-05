@@ -1,7 +1,7 @@
 {
-  "name": "@writetome51/page-loader",
-  "version": "3.0.0",
-  "description": "A TypeScript/Javascript class intended to be used with a separate Paginator class.  It loads a page (array) of data into memory",
+  "name": "@writetome51/current-page",
+  "version": "0.0.1",
+  "description": "A TypeScript/Javascript class intended to help a separate Paginator paginate data that can't all be stored in memory at once",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/writetome51/page-loader.git"
+    "url": "git+https://github.com/writetome51/current-page.git"
   },
   "keywords": [
     "data",
@@ -25,12 +25,12 @@
   "author": "Steve Thompson",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/writetome51/page-loader/issues"
+    "url": "https://github.com/writetome51/current-page/issues"
   },
-  "homepage": "https://github.com/writetome51/page-loader#readme",
+  "homepage": "https://github.com/writetome51/current-page#readme",
   "devDependencies": {},
   "dependencies": {
-    "@writetome51/batch-to-page-translator": "^1.0.0",
+    "@writetome51/load-to-page-translator": "^1.0.0",
     "@writetome51/set-array": "^1.0.2"
   }
 }

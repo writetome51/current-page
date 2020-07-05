@@ -1,44 +1,18 @@
-import { BatchToPageTranslator } from '@writetome51/batch-to-page-translator';
-
-
-/**********************
- This class is intended to be used with a separate Paginator class.
- It loads a 'page' of data into memory.
- It supports the breaking of the full dataset (the data to be paginated) into batches
- in case it's too big to load entirely (a batch is defined as the total amount of
- data the Paginator can handle at once).
- *********************/
-export declare class PageLoader {
-
-	readonly loadedPage: any[];
-
-	private __batchPaginator;
-	private __bch2pgTranslator;
-	private __getBatch;
-
-
-	constructor(
-		__batchPaginator: {
-			currentPageNumber: number;
-			currentPage: any[];
-			data: any[];
-		},
-
-		__bch2pgTranslator: BatchToPageTranslator,
-
-		__getBatch: {
-			containingPage: (pageNumber: number) => Promise<any[]>;
-			byForce_containingPage: (pageNumber: number) => Promise<any[]>;
-		}
-	);
-
-
-	loadPage(pageNumber: number): Promise<void>;
-
-
-	forceLoadPage(pageNumber: number): Promise<void>;
-
-
-	private __set_loadedPage_fromBatch;
-
+import { LoadToPageTranslator } from '@writetome51/load-to-page-translator';
+export declare class CurrentPage {
+    private __loadPaginator;
+    private __bch2pgTranslator;
+    private __getLoad;
+    private __data;
+    constructor(__loadPaginator: {
+        getPage: (pageNumber: any) => any[];
+        data: any[];
+    }, __bch2pgTranslator: LoadToPageTranslator, __getLoad: {
+        containingPage: (pageNumber: any) => Promise<any[]>;
+        byForce_containingPage: (pageNumber: any) => Promise<any[]>;
+    });
+    get(): any[];
+    set(pageNumber: any): Promise<void>;
+    reset(pageNumber: any): Promise<void>;
+    private __set_loadedPage_fromLoad;
 }

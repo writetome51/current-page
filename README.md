@@ -1,4 +1,4 @@
-# PageLoader
+# CurrentPage
 
 A TypeScript/Javascript class intended to be used with a separate Paginator class.  
 It loads a page (array) of data into memory.  
@@ -15,14 +15,14 @@ make this possible.
 ```ts
 constructor(
    
-    batchPaginator: { currentPageNumber: number, currentPage: any[], data: any[] },
+    loadPaginator: { currentPageNumber: number, currentPage: any[], data: any[] },
         // Setting its  `currentPageNumber` must automatically update its `currentPage`.
  
-    bch2pgTranslator: BatchToPageTranslator,
+    load2pgTranslator: LoadToPageTranslator,
         // Automatically installed with this package.
         // https://www.npmjs.com/package/@writetome51/batch-to-page-translator
  
-    getBatch: {
+    getLoad: {
         // Accesses the data source.
         
         containingPage: (pageNumber) => Promise<any[]>;
@@ -36,40 +36,34 @@ constructor(
 </details>
 
 
-## Properties
-```ts
-loadedPage: any[] // read-only
-    // All items in the loaded page.
-```
-
-
 ## Methods
 <details>
 <summary>view methods</summary>
 
 ```ts
-async loadPage(pageNumber): Promise<void>
-    // Loads the batch containing pageNumber, and the page is assigned to
-    // this.loadedPage
+async set(pageNumber): Promise<void>
+    // After calling it, the page's data can be gotten by calling this.get().
 
-async forceLoadPage(pageNumber): Promise<void>
-    // Even if pageNumber is already the page currently being viewed, the 
-    // batch containing that page is reloaded, and the page is assigned to 
-    // this.loadedPage
+async reset(pageNumber): Promise<void>
+    // Even if `pageNumber` is already the current page, the 
+    // data containing that page is reloaded from the source.
+
+get(): any[]
+    // returns the contents of the page.
 ```
 </details>
 
 
 ## Installation
 
-`npm install @writetome51/page-loader`
+`npm install @writetome51/current-page`
 
 ## Loading
 ```ts
 // if using TypeScript:
-import { PageLoader } from '@writetome51/page-loader';
+import { CurrentPage } from '@writetome51/current-page';
 // if using ES5 JavaScript:
-var PageLoader = require('@writetome51/page-loader').PageLoader;
+var CurrentPage = require('@writetome51/current-page').CurrentPage;
 ```
 
 ## License
