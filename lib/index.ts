@@ -12,18 +12,13 @@ export class CurrentPage {
 	constructor(
 		private __loadPaginator: {
 			getPage: (pageNumber) => any[],
-
 			data: any[]
 		},
 		private __load2pgTranslator: LoadToPageTranslator,
 
 		private __pageLoadAccess: {
-			containingPage: (pageNumber) => Promise<any[]>;
-
-			// This must load the load containing `pageNumber` even if that load is already
-			// currently loaded.
-
-			byForce_containingPage: (pageNumber) => Promise<any[]>;
+			getLoadContainingPage: (pageNumber) => Promise<any[]>,
+			getRefreshedLoadContainingPage: (pageNumber) => Promise<any[]>
 		}
 	) {
 	}
@@ -35,12 +30,14 @@ export class CurrentPage {
 
 
 	async set(pageNumber): Promise<void> {
-		await this.__getLoadAndSetPage(this.__pageLoadAccess.containingPage, pageNumber);
+		await this.__getLoadAndSetPage(this.__pageLoadAccess.getLoadContainingPage, pageNumber);
 	}
 
 
 	async reset(pageNumber): Promise<void> {
-		await this.__getLoadAndSetPage(this.__pageLoadAccess.byForce_containingPage, pageNumber);
+		await this.__getLoadAndSetPage(
+			this.__pageLoadAccess.getRefreshedLoadContainingPage, pageNumber
+		);
 	}
 
 

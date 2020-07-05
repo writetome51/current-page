@@ -1,11 +1,7 @@
 # CurrentPage
 
-A TypeScript/Javascript class intended to be used with a separate Paginator class.  
-It loads a page (array) of data into memory.  
-It supports the breaking of the full dataset (the data to be paginated) into batches  
-in case it's too big to load entirely (a batch is defined as the total amount of  
-data the Paginator can handle at once).  The objects passed into the constructor  
-make this possible. 
+A TypeScript/Javascript class intended to help a separate Paginator  
+paginate data that can't all be stored in memory at once.
 
 ## Constructor
 
@@ -14,24 +10,18 @@ make this possible.
 
 ```ts
 constructor(
-   
-    loadPaginator: { currentPageNumber: number, currentPage: any[], data: any[] },
-        // Setting its  `currentPageNumber` must automatically update its `currentPage`.
- 
-    load2pgTranslator: LoadToPageTranslator,
-        // Automatically installed with this package.
-        // https://www.npmjs.com/package/@writetome51/batch-to-page-translator
- 
-    getLoad: {
-        // Accesses the data source.
-        
-        containingPage: (pageNumber) => Promise<any[]>;
-        
-        byForce_containingPage: (pageNumber) => Promise<any[]>;
-            // This must load the batch containing `pageNumber` even if that batch is 
-            // already currently loaded.
+    __loadPaginator: {
+        getPage: (pageNumber) => any[];
+        data: any[];
+    },
+
+    __load2pgTranslator: LoadToPageTranslator,
+
+    __pageLoadAccess: {
+        getLoadContainingPage: (pageNumber) => Promise<any[]>;
+        getRefreshedLoadContainingPage: (pageNumber) => Promise<any[]>;
     }
-) 
+)
 ```
 </details>
 
@@ -41,10 +31,10 @@ constructor(
 <summary>view methods</summary>
 
 ```ts
-async set(pageNumber): Promise<void>
+set(pageNumber): Promise<void>
     // After calling it, the page's data can be gotten by calling this.get().
 
-async reset(pageNumber): Promise<void>
+reset(pageNumber): Promise<void>
     // Even if `pageNumber` is already the current page, the 
     // data containing that page is reloaded from the source.
 
@@ -56,7 +46,7 @@ get(): any[]
 
 ## Installation
 
-`npm install @writetome51/current-page`
+`npm i @writetome51/current-page`
 
 ## Loading
 ```ts
