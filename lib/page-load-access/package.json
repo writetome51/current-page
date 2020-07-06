@@ -1,0 +1,33 @@
+{
+  "name": "@writetome51/page-load-access",
+  "version": "0.0.1",
+  "description": "A class intended to be used by a paginator. Its methods return a load (array) of data from a larger set that is too big to be loaded all at once. Each load can contain multiple pages of data.",
+  "main": "../../dist/page-load-access/dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/writetome51/page-load-access.git"
+  },
+  "keywords": [
+    "data",
+    "load",
+    "retrieve",
+    "batch",
+    "batches",
+    "paginator",
+    "typescript",
+    "class"
+  ],
+  "author": "Steve Thompson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/writetome51/page-load-access/issues"
+  },
+  "homepage": "https://github.com/writetome51/page-load-access#readme",
+  "devDependencies": {},
+  "dependencies": {
+  }
+}
