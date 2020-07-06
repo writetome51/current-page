@@ -6,7 +6,9 @@ paginate data that can't all be stored in memory at once.
 ## Instantiation
 
 ```ts
-let currentPage = getInstance_CurrentPage(
+// Use this factory function:
+
+getInstance_CurrentPage(
     params: {
         dataSource: {
 
@@ -28,7 +30,7 @@ let currentPage = getInstance_CurrentPage(
             getPagesPerLoad: () => number
         }
     }
-);
+): CurrentPage
 ```
 
 
@@ -58,9 +60,11 @@ get(): any[]
 ## Loading
 ```ts
 // if using TypeScript:
-import { CurrentPage } from '@writetome51/current-page';
+import { CurrentPage, getInstance_CurrentPage } from '@writetome51/current-page';
 // if using ES5 JavaScript:
-var CurrentPage = require('@writetome51/current-page').CurrentPage;
+var mod = require('@writetome51/current-page');
+var CurrentPage = mod.CurrentPage;
+var getInstance_CurrentPage = mod.getInstance_CurrentPage;
 ```
 
 ## License
