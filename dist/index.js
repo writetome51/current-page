@@ -6,9 +6,9 @@ const array_paginator_1 = require("@writetome51/array-paginator");
 const current_page_1 = require("./current-page");
 var current_page_2 = require("./current-page");
 exports.CurrentPage = current_page_2.CurrentPage;
-function getInstance_CurrentPage(dataSource, pageInfo, loadInfo) {
-    let load2pgTranslator = new lib_1.LoadToPageTranslator(pageInfo, loadInfo);
-    let pageLoadAccess = new lib_2.PageLoadAccess(dataSource, loadInfo, load2pgTranslator);
+function getInstance_CurrentPage(params) {
+    let load2pgTranslator = new lib_1.LoadToPageTranslator(params.pageInfo, params.loadInfo);
+    let pageLoadAccess = new lib_2.PageLoadAccess(params.dataSource, params.loadInfo, load2pgTranslator);
     let loadPaginator;
     loadPaginator = new array_paginator_1.ArrayPaginator();
     return new current_page_1.CurrentPage(loadPaginator, load2pgTranslator, pageLoadAccess);

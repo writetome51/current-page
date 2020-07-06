@@ -24,12 +24,10 @@ export declare class LoadToPageTranslator {
 	);
 
 
-	getLoadNumberOfPage(pageNumber: any): number;
+	getLoadNumberOfPage(pageNumber: number): number;
 
+	loadContainsPage(pageNumber: number, loadNumber: number): boolean;
 
-	loadContainsPage(pageNumber: any, loadNumber: any): boolean;
-
-
-	getPageNumberOfLoadFromAbsolutePage(pageNumber: any): number;
+	getPageNumberOfLoadFromAbsolutePage(pageNumber: number): number;
 
 }

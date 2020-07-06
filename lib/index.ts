@@ -7,12 +7,14 @@ import { CurrentPage } from './current-page';
 export { CurrentPage } from './current-page';
 
 
-export function getInstance_CurrentPage(dataSource, pageInfo, loadInfo): CurrentPage {
+export function getInstance_CurrentPage(
+	params: { dataSource, pageInfo, loadInfo }
+): CurrentPage {
 
-	let load2pgTranslator = new LoadToPageTranslator(pageInfo, loadInfo);
+	let load2pgTranslator = new LoadToPageTranslator(params.pageInfo, params.loadInfo);
 
 	let pageLoadAccess = new PageLoadAccess(
-		dataSource, loadInfo, load2pgTranslator
+		params.dataSource, params.loadInfo, load2pgTranslator
 	);
 
 	let loadPaginator: {

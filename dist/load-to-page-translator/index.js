@@ -9,8 +9,9 @@ const not_1 = require("@writetome51/not");
  be stored in memory all at once.  The amount of data that can stored in memory at
  once is referred to here as a 'load', which can be multiple pages of data.
 
- An example: if the user is clicking thru pagination controls and clicks to page 10, it's this
- class' job to figure out which load page 10 is in and tell the Paginator what page to show.
+ An example: if the user is clicking thru pagination controls and clicks to page 10,
+ it's this class' job to figure out which load page 10 is in and tell the Paginator
+ what page of that load to show.
  *******************/
 class LoadToPageTranslator {
     constructor(__pageInfo, __loadInfo) {
@@ -18,9 +19,10 @@ class LoadToPageTranslator {
         this.__loadInfo = __loadInfo;
     }
     getLoadNumberOfPage(pageNumber) {
-        if (this.__pageInfo.getTotalPages() < 1)
+        let totalPages = this.__pageInfo.getTotalPages();
+        if (totalPages < 1)
             throw new Error('There is no load to get because the total number of pages is 0');
-        if (not_1.not(in_range_1.inRange([1, this.__pageInfo.getTotalPages()], pageNumber))) {
+        if (not_1.not(in_range_1.inRange([1, totalPages], pageNumber))) {
             throw new Error('The requested page does not exist.');
         }
         return get_rounded_up_down_1.getRoundedUp(pageNumber / this.__loadInfo.getPagesPerLoad());
