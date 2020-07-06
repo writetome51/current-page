@@ -6,16 +6,30 @@
  An example: if the user is clicking thru pagination controls and clicks to page 10, it's this
  class' job to figure out which load page 10 is in and tell the Paginator what page to show.
  *******************/
+
 export declare class LoadToPageTranslator {
-    private __pageInfo;
-    private __loadInfo;
-    constructor(__pageInfo: {
-        getTotalPages: () => number;
-    }, __loadInfo: {
-        getCurrentLoadNumber: () => number;
-        getPagesPerLoad: () => number;
-    });
-    getLoadNumberOfPage(pageNumber: any): number;
-    loadContainsPage(pageNumber: any, loadNumber: any): boolean;
-    getPageNumberOfLoadFromAbsolutePage(pageNumber: any): number;
+
+	private __pageInfo;
+	private __loadInfo;
+
+
+	constructor(
+		__pageInfo: {
+			getTotalPages: () => number;
+		},
+		__loadInfo: {
+			getCurrentLoadNumber: () => number;
+			getPagesPerLoad: () => number;
+		}
+	);
+
+
+	getLoadNumberOfPage(pageNumber: any): number;
+
+
+	loadContainsPage(pageNumber: any, loadNumber: any): boolean;
+
+
+	getPageNumberOfLoadFromAbsolutePage(pageNumber: any): number;
+
 }

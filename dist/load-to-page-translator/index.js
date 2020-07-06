@@ -35,12 +35,11 @@ class LoadToPageTranslator {
     // Example: say pagesPerLoad is 10, the current load is 2, and `pageNumber` is 11. That
     // would be page 1 of load 2, so the function returns 1.
     getPageNumberOfLoadFromAbsolutePage(pageNumber) {
-        let loadNumber = this.getLoadNumberOfPage(pageNumber);
-        if (this.__loadInfo.getCurrentLoadNumber() !== loadNumber) {
+        let loadNumber = this.__loadInfo.getCurrentLoadNumber();
+        if (not_1.not(this.loadContainsPage(pageNumber, loadNumber))) {
             throw new Error(`The current load does not contain the requested page`);
         }
-        return (pageNumber -
-            ((this.__loadInfo.getCurrentLoadNumber() - 1) * this.__loadInfo.getPagesPerLoad()));
+        return (pageNumber - ((loadNumber - 1) * this.__loadInfo.getPagesPerLoad()));
     }
 }
 exports.LoadToPageTranslator = LoadToPageTranslator;
