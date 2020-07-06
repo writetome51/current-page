@@ -1,7 +1,7 @@
 import { getRoundedUp } from '@writetome51/get-rounded-up-down';
-import { noValue } from '@writetome51/has-value-no-value';
 import { inRange } from '@writetome51/in-range';
 import { not } from '@writetome51/not';
+import { noValue } from '@writetome51/has-value-no-value';
 
 
 /********************

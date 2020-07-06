@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const get_rounded_up_down_1 = require("@writetome51/get-rounded-up-down");
-const has_value_no_value_1 = require("@writetome51/has-value-no-value");
 const in_range_1 = require("@writetome51/in-range");
 const not_1 = require("@writetome51/not");
+const has_value_no_value_1 = require("@writetome51/has-value-no-value");
 /********************
  This class is intended to help a separate Paginator paginate a dataset too big to
  be stored in memory all at once.  The amount of data that can stored in memory at

@@ -39,7 +39,7 @@ class CurrentPage {
     }
     __setPage_fromLoad(load, pageNumber) {
         set_array_1.setArray(this.__loadPaginator.data, load);
-        pageNumber = this.__load2pgTranslator.getPageNumberInLoadFromAbsolutePage(pageNumber);
+        pageNumber = this.__load2pgTranslator.getPageNumberOfLoadFromAbsolutePage(pageNumber);
         this.__data = this.__loadPaginator.getPage(pageNumber);
     }
 }

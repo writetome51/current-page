@@ -31,7 +31,7 @@ class PageLoadAccess {
     }
     getRefreshedLoadContainingPage(pageNumber) {
         return __awaiter(this, void 0, void 0, function* () {
-            this.__loadInfo.setCurrentLoadNumber(this.__load2pgTranslator.getLoadNumberContainingPage(pageNumber));
+            this.__loadInfo.setCurrentLoadNumber(this.__load2pgTranslator.getLoadNumberOfPage(pageNumber));
             this.__currentLoad = yield this.__dataSource.getLoad(this.__loadInfo.getCurrentLoadNumber(), this.__loadInfo.getItemsPerLoad(), this.__loadInfo.currentLoadIsLast());
             return this.__currentLoad;
         });

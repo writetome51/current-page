@@ -1,4 +1,4 @@
-import { LoadToPageTranslator } from '@writetome51/load-to-page-translator';
+import { LoadToPageTranslator } from './load-to-page-translator';
 import { setArray } from '@writetome51/set-array';
 
 
@@ -52,7 +52,7 @@ export class CurrentPage {
 
 	private __setPage_fromLoad(load: any[], pageNumber): void {
 		setArray(this.__loadPaginator.data, load);
-		pageNumber = this.__load2pgTranslator.getPageNumberInLoadFromAbsolutePage(pageNumber);
+		pageNumber = this.__load2pgTranslator.getPageNumberOfLoadFromAbsolutePage(pageNumber);
 
 		this.__data = this.__loadPaginator.getPage(pageNumber);
 	}

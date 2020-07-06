@@ -1,14 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const lib_1 = require("../../load-to-page-translator/lib");
-const lib_2 = require("../../page-load-access/lib");
 const array_paginator_1 = require("@writetome51/array-paginator");
 const current_page_1 = require("./current-page");
+const load_to_page_translator_1 = require("./load-to-page-translator");
+const page_load_access_1 = require("./page-load-access");
 var current_page_2 = require("./current-page");
 exports.CurrentPage = current_page_2.CurrentPage;
 function getInstance_CurrentPage(params) {
-    let load2pgTranslator = new lib_1.LoadToPageTranslator(params.pageInfo, params.loadInfo);
-    let pageLoadAccess = new lib_2.PageLoadAccess(params.dataSource, params.loadInfo, load2pgTranslator);
+    let load2pgTranslator = new load_to_page_translator_1.LoadToPageTranslator(params.pageInfo, params.loadInfo);
+    let pageLoadAccess = new page_load_access_1.PageLoadAccess(params.dataSource, params.loadInfo, load2pgTranslator);
     let loadPaginator;
     loadPaginator = new array_paginator_1.ArrayPaginator();
     return new current_page_1.CurrentPage(loadPaginator, load2pgTranslator, pageLoadAccess);

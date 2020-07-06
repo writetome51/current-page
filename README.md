@@ -3,27 +3,34 @@
 A TypeScript/Javascript class intended to help a separate Paginator  
 paginate data that can't all be stored in memory at once.
 
-## Constructor
-
-<details>
-<summary>view constructor</summary>
+## Instantiation
 
 ```ts
-constructor(
-    __loadPaginator: {
-        getPage: (pageNumber) => any[];
-        data: any[];
-    },
+let currentPage = getInstance_CurrentPage(
+    params: {
+        dataSource: {
 
-    __load2pgTranslator: LoadToPageTranslator,
+            // If `isLastLoad` is true, it must only return the remaining items in the dataset and
+            // ignore `itemsPerLoad`.
 
-    __pageLoadAccess: {
-        getLoadContainingPage: (pageNumber) => Promise<any[]>;
-        getRefreshedLoadContainingPage: (pageNumber) => Promise<any[]>;
+            getLoad: (
+                loadNumber: number, itemsPerLoad: number, isLastLoad: boolean
+            ) => Promise<any[]>;
+        },
+
+        pageInfo: { getTotalPages: () => number },
+
+        loadInfo: {
+            getCurrentLoadNumber: () => number,
+            setCurrentLoadNumber: (num) => void,
+            getItemsPerLoad: () => number,
+            currentLoadIsLast: () => boolean,
+            getPagesPerLoad: () => number
+        }
     }
-)
+);
 ```
-</details>
+
 
 
 ## Methods
@@ -32,7 +39,7 @@ constructor(
 
 ```ts
 set(pageNumber): Promise<void>
-    // After calling it, the page's data can be gotten by calling this.get().
+    // After calling this, get the page's data by calling this.get().
 
 reset(pageNumber): Promise<void>
     // Even if `pageNumber` is already the current page, the 

@@ -1,4 +1,4 @@
-import { LoadToPageTranslator } from '@writetome51/load-to-page-translator';
+import { LoadToPageTranslator } from '../load-to-page-translator';
 
 
 /******************************
@@ -23,12 +23,10 @@ export class PageLoadAccess {
 				loadNumber: number, itemsPerLoad: number, isLastLoad: boolean
 			) => Promise<any[]>;
 		},
-
 		private __loadInfo: {
 			getCurrentLoadNumber: () => number, setCurrentLoadNumber: (num: number) => void,
 			getItemsPerLoad: () => number, currentLoadIsLast: () => boolean
 		},
-
 		private __load2pgTranslator: LoadToPageTranslator
 	) {
 	}
@@ -46,7 +44,7 @@ export class PageLoadAccess {
 
 	async getRefreshedLoadContainingPage(pageNumber): Promise<any[]> {
 		this.__loadInfo.setCurrentLoadNumber(
-			this.__load2pgTranslator.getLoadNumberContainingPage(pageNumber)
+			this.__load2pgTranslator.getLoadNumberOfPage(pageNumber)
 		);
 
 		this.__currentLoad = await this.__dataSource.getLoad(
