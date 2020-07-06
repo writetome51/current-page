@@ -1,61 +1,27 @@
-import { LoadToPageTranslator } from '@writetome51/load-to-page-translator';
-import { setArray } from '@writetome51/set-array';
+import { LoadToPageTranslator } from '../../load-to-page-translator/lib';
+import { PageLoadAccess } from '../../page-load-access/lib';
+import { ArrayPaginator } from '@writetome51/array-paginator';
+import { CurrentPage } from './current-page';
 
 
-// Intended to help a separate Paginator paginate data that can't all be stored in memory at once.
-
-export class CurrentPage {
-
-	private __data = [];
+export { CurrentPage } from './current-page';
 
 
-	constructor(
-		private __loadPaginator: {
-			getPage: (pageNumber) => any[],
-			data: any[]
-		},
-		private __load2pgTranslator: LoadToPageTranslator,
+export function getInstance_CurrentPage(dataSource, pageInfo, loadInfo): CurrentPage {
 
-		private __pageLoadAccess: {
-			getLoadContainingPage: (pageNumber) => Promise<any[]>,
-			getRefreshedLoadContainingPage: (pageNumber) => Promise<any[]>
-		}
-	) {
-	}
+	let load2pgTranslator = new LoadToPageTranslator(pageInfo, loadInfo);
 
+	let pageLoadAccess = new PageLoadAccess(
+		dataSource, loadInfo, load2pgTranslator
+	);
 
-	get(): any[] {
-		return this.__data;
-	}
+	let loadPaginator: {
+		getPage: (pageNumber) => any[],
+		data: any[]
+	};
+	loadPaginator = new ArrayPaginator();
 
-
-	async set(pageNumber): Promise<void> {
-		await this.__getLoadAndSetPage(this.__pageLoadAccess.getLoadContainingPage, pageNumber);
-	}
-
-
-	async reset(pageNumber): Promise<void> {
-		await this.__getLoadAndSetPage(
-			this.__pageLoadAccess.getRefreshedLoadContainingPage, pageNumber
-		);
-	}
-
-
-	private async __getLoadAndSetPage(
-		getLoad: (pageNumber) => Promise<any[]>,
-		pageNumber
-	) {
-		let load = await getLoad(pageNumber);
-		this.__setPage_fromLoad(load, pageNumber);
-	}
-
-
-	private __setPage_fromLoad(load: any[], pageNumber): void {
-		setArray(this.__loadPaginator.data, load);
-		pageNumber = this.__load2pgTranslator.getPageNumberInLoadFromAbsolutePage(pageNumber);
-
-		this.__data = this.__loadPaginator.getPage(pageNumber);
-	}
-
-
+	return new CurrentPage(
+		loadPaginator, load2pgTranslator, pageLoadAccess
+	);
 }
