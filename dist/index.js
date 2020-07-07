@@ -10,7 +10,7 @@ function getInstance_CurrentPage(params) {
     let load2pgTranslator = new load_to_page_translator_1.LoadToPageTranslator(params.pageInfo, params.loadInfo);
     let pageLoadAccess = new page_load_access_1.PageLoadAccess(params.dataSource, params.loadInfo, load2pgTranslator);
     let loadPaginator;
-    loadPaginator = new array_paginator_1.ArrayPaginator();
+    loadPaginator = new array_paginator_1.ArrayPaginator([], params.pageInfo);
     return new current_page_1.CurrentPage(loadPaginator, load2pgTranslator, pageLoadAccess);
 }
 exports.getInstance_CurrentPage = getInstance_CurrentPage;

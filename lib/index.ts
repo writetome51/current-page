@@ -20,7 +20,11 @@ export function getInstance_CurrentPage(
 			) => Promise<any[]>;
 		},
 
-		pageInfo: { getTotalPages: () => number },
+		pageInfo: { 
+			setItemsPerPage: (num) => void, 
+			getItemsPerPage: () => number,
+			getTotalPages: () => number
+		},
 
 		loadInfo: {
 			getCurrentLoadNumber: () => number,
@@ -43,7 +47,7 @@ export function getInstance_CurrentPage(
 		getPage: (pageNumber) => any[],
 		data: any[]
 	};
-	loadPaginator = new ArrayPaginator();
+	loadPaginator = new ArrayPaginator([], params.pageInfo);
 
 	return new CurrentPage(
 		loadPaginator, load2pgTranslator, pageLoadAccess
