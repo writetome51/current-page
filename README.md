@@ -18,17 +18,21 @@ getInstance_CurrentPage(
             getLoad: (
                 loadNumber: number, itemsPerLoad: number, isLastLoad: boolean
             ) => Promise<any[]>;
-        },
+        };
 
-        pageInfo: { getTotalPages: () => number },
+        pageInfo: {
+            setItemsPerPage: (num) => void;
+            getItemsPerPage: () => number;
+            getTotalPages: () => number;        
+        };
 
         loadInfo: {
-            getCurrentLoadNumber: () => number,
-            setCurrentLoadNumber: (num) => void,
-            getItemsPerLoad: () => number,
-            currentLoadIsLast: () => boolean,
-            getPagesPerLoad: () => number
-        }
+            getCurrentLoadNumber: () => number;
+            setCurrentLoadNumber: (num) => void;
+            getItemsPerLoad: () => number;
+            currentLoadIsLast: () => boolean;
+            getPagesPerLoad: () => number;
+        };
     }
 ): CurrentPage
 ```
