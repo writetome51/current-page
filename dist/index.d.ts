@@ -10,6 +10,8 @@ export declare function getInstance_CurrentPage(
 			getLoad: (loadNumber: number, itemsPerLoad: number, isLastLoad: boolean) => Promise<any[]>;
 		};
 		pageInfo: {
+			setItemsPerPage: (num: number) => void;
+			getItemsPerPage: () => number;
 			getTotalPages: () => number;
 		};
 		loadInfo: {
