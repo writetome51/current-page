@@ -45,7 +45,7 @@ export class CurrentPage {
 		getLoad: (pageNumber) => Promise<any[]>,
 		pageNumber
 	) {
-		let load = await getLoad(pageNumber);
+		let load = await getLoad.apply(this.__pageLoadAccess, [pageNumber]);
 		this.__setPage_fromLoad(load, pageNumber);
 	}
 
