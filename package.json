@@ -32,7 +32,10 @@
     "url": "https://github.com/writetome51/current-page/issues"
   },
   "homepage": "https://github.com/writetome51/current-page#readme",
-  "devDependencies": {},
+  "devDependencies": {
+    "@writetome51/get-countup-countdown": "^1.0.3",
+    "@writetome51/arrays-match": "^1.0.6"
+  },
   "dependencies": {
     "@writetome51/array-paginator": "^7.0.0",
     "@writetome51/get-rounded-up-down": "^1.0.11",

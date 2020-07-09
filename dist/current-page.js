@@ -33,7 +33,7 @@ class CurrentPage {
     }
     __getLoadAndSetPage(getLoad, pageNumber) {
         return __awaiter(this, void 0, void 0, function* () {
-            let load = yield getLoad(pageNumber);
+            let load = yield getLoad.apply(this.__pageLoadAccess, [pageNumber]);
             this.__setPage_fromLoad(load, pageNumber);
         });
     }
