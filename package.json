@@ -1,6 +1,6 @@
 {
   "name": "@writetome51/current-page",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A TypeScript/Javascript class intended to help a separate Paginator paginate data that can't all be stored in memory at once",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
