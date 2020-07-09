@@ -37,17 +37,19 @@ export function getInstance_CurrentPage(
 
 ): CurrentPage {
 
-	let load2pgTranslator = new LoadToPageTranslator(params.pageInfo, params.loadInfo);
+	let {dataSource, pageInfo, loadInfo} = params;
+
+	let load2pgTranslator = new LoadToPageTranslator(pageInfo, loadInfo);
 
 	let pageLoadAccess = new PageLoadAccess(
-		params.dataSource, params.loadInfo, load2pgTranslator
+		dataSource, loadInfo, load2pgTranslator
 	);
 
 	let loadPaginator: {
 		getPage: (pageNumber) => any[],
 		data: any[]
 	};
-	loadPaginator = new ArrayPaginator([], params.pageInfo);
+	loadPaginator = new ArrayPaginator([], pageInfo);
 
 	return new CurrentPage(
 		loadPaginator, load2pgTranslator, pageLoadAccess
