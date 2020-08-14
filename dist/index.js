@@ -1,14 +1,13 @@
 import {ArrayPaginator} from '@writetome51/array-paginator';
-import {CurrentPage} from './current-page';
-import {LoadToPageTranslator} from './load-to-page-translator';
-import {PageLoadAccess} from './page-load-access';
+import {CurrentPage} from './current-page/index.js';
+import {LoadToPageTranslator} from './load-to-page-translator/index.js';
+import {PageLoadAccess} from './page-load-access/index.js';
 
 
-export {CurrentPage} from './current-page';
+export {CurrentPage} from './current-page/index.js';
 
 
 export function getInstance_CurrentPage(params) {
-
 	let {dataSource, pageInfo, loadInfo} = params;
 
 	let load2pgTranslator = new LoadToPageTranslator(pageInfo, loadInfo);

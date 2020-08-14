@@ -7,9 +7,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { getInstance_CurrentPage } from './index';
+import { getInstance_CurrentPage } from './index.js';
 import { getCountup } from '@writetome51/get-countup-countdown';
 import { arraysMatch } from '@writetome51/arrays-match';
+
 function runTests() {
     return __awaiter(this, void 0, void 0, function* () {
         let dataSource = {

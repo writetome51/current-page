@@ -1,4 +1,4 @@
-import { LoadToPageTranslator } from './load-to-page-translator';
+import { LoadToPageTranslator } from '../load-to-page-translator';
 
 
 export declare class CurrentPage {

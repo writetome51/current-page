@@ -1,4 +1,4 @@
-import { LoadToPageTranslator } from './load-to-page-translator';
+import { LoadToPageTranslator } from '../load-to-page-translator';
 import { setArray } from '@writetome51/set-array';
 
 
