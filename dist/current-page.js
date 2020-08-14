@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,10 +7,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-const set_array_1 = require("@writetome51/set-array");
+import { setArray } from '@writetome51/set-array';
 // Intended to help a separate Paginator paginate data that can't all be stored in memory at once.
-class CurrentPage {
+export class CurrentPage {
     constructor(__loadPaginator, __load2pgTranslator, __pageLoadAccess) {
         this.__loadPaginator = __loadPaginator;
         this.__load2pgTranslator = __load2pgTranslator;
@@ -38,9 +36,8 @@ class CurrentPage {
         });
     }
     __setPage_fromLoad(load, pageNumber) {
-        set_array_1.setArray(this.__loadPaginator.data, load);
+        setArray(this.__loadPaginator.data, load);
         pageNumber = this.__load2pgTranslator.getPageNumberOfLoadFromAbsolutePage(pageNumber);
         this.__data = this.__loadPaginator.getPage(pageNumber);
     }
 }
-exports.CurrentPage = CurrentPage;

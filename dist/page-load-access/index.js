@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,13 +7,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
 /******************************
  This is intended to be used by a paginator.
  Its methods return a load (array) of data from a larger set that is too big to be
  loaded all at once.  Each load can contain multiple pages of data.
  ******************************/
-class PageLoadAccess {
+export class PageLoadAccess {
     constructor(__dataSource, __loadInfo, __load2pgTranslator) {
         this.__dataSource = __dataSource;
         this.__loadInfo = __loadInfo;
@@ -37,4 +35,3 @@ class PageLoadAccess {
         });
     }
 }
-exports.PageLoadAccess = PageLoadAccess;

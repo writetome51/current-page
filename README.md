@@ -62,13 +62,8 @@ get(): any[]
 `npm i @writetome51/current-page`
 
 ## Loading
-```ts
-// if using TypeScript:
+```js
 import { CurrentPage, getInstance_CurrentPage } from '@writetome51/current-page';
-// if using ES5 JavaScript:
-var mod = require('@writetome51/current-page');
-var CurrentPage = mod.CurrentPage;
-var getInstance_CurrentPage = mod.getInstance_CurrentPage;
 ```
 
 ## License
