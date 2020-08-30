@@ -8,6 +8,7 @@ export {CurrentPage} from './current-page/index.js';
 
 
 export function getInstance_CurrentPage(params) {
+
 	let {dataSource, pageInfo, loadInfo} = params;
 
 	let load2pgTranslator = new LoadToPageTranslator(pageInfo, loadInfo);

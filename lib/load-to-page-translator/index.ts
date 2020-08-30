@@ -55,9 +55,7 @@ export class LoadToPageTranslator {
 		if (not(this.loadContainsPage(pageNumber, loadNumber))) {
 			throw new Error(`The current load does not contain the requested page`);
 		}
-		return (
-			pageNumber - ((loadNumber - 1) * this.__loadInfo.getPagesPerLoad())
-		);
+		return (pageNumber - ((loadNumber - 1) * this.__loadInfo.getPagesPerLoad()));
 	}
 
 

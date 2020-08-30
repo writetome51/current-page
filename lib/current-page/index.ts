@@ -1,5 +1,4 @@
 import { LoadToPageTranslator } from '../load-to-page-translator';
-import { setArray } from '@writetome51/set-array';
 
 
 // Intended to help a separate Paginator paginate data that can't all be stored in memory at once.
@@ -51,7 +50,7 @@ export class CurrentPage {
 
 
 	private __setPage_fromLoad(load: any[], pageNumber): void {
-		setArray(this.__loadPaginator.data, load);
+		this.__loadPaginator.data = load;
 		pageNumber = this.__load2pgTranslator.getPageNumberOfLoadFromAbsolutePage(pageNumber);
 
 		this.__data = this.__loadPaginator.getPage(pageNumber);
