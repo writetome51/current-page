@@ -1,4 +1,5 @@
 import { LoadToPageTranslator } from '../load-to-page-translator';
+import { PageLoadAccess } from '../page-load-access';
 
 
 // Intended to help a separate Paginator paginate data that can't all be stored in memory at once.
@@ -15,10 +16,7 @@ export class LoadedPage {
 		},
 		private __load2pgTranslator: LoadToPageTranslator,
 
-		private __pageLoadAccess: {
-			getLoadContainingPage: (pageNumber) => Promise<any[]>,
-			getRefreshedLoadContainingPage: (pageNumber) => Promise<any[]>
-		}
+		private __pageLoadAccess: PageLoadAccess
 	) {
 	}
 

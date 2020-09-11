@@ -1,12 +1,6 @@
 import { LoadToPageTranslator } from '../load-to-page-translator';
 
 
-/******************************
- This is intended to be used by a paginator.
- Its methods return a load (array) of data from a larger set that is too big to be
- loaded all at once.  Each load can contain multiple pages of data.
- ******************************/
-
 export class PageLoadAccess {
 
 	private __currentLoad: any[];

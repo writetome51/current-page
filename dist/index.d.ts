@@ -1,10 +1,11 @@
-import { CurrentPage } from './current-page';
+import { LoadedPage } from './loaded-page';
 
 
-export { CurrentPage } from './current-page';
+export { LoadedPage } from './loaded-page';
 
 
-export declare function getInstance_CurrentPage(
+export declare function getInstance_LoadedPage(
+
 	params: {
 		dataSource: {
 			getLoad: (loadNumber: number, itemsPerLoad: number, isLastLoad: boolean) => Promise<any[]>;
@@ -22,4 +23,5 @@ export declare function getInstance_CurrentPage(
 			getPagesPerLoad: () => number;
 		};
 	}
-): CurrentPage;
+
+): LoadedPage;
