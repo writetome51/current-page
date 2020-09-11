@@ -1,13 +1,13 @@
 import { ArrayPaginator } from '@writetome51/array-paginator';
-import { CurrentPage } from './current-page';
+import { LoadedPage } from './loaded-page';
 import { LoadToPageTranslator } from './load-to-page-translator';
 import { PageLoadAccess } from './page-load-access';
 
 
-export { CurrentPage } from './current-page';
+export { LoadedPage } from './loaded-page';
 
 
-export function getInstance_CurrentPage(
+export function getInstance_LoadedPage(
 
 	params: {
 		dataSource: {
@@ -35,7 +35,7 @@ export function getInstance_CurrentPage(
 		}
 	}
 
-): CurrentPage {
+): LoadedPage {
 
 	let {dataSource, pageInfo, loadInfo} = params;
 
@@ -51,7 +51,7 @@ export function getInstance_CurrentPage(
 	};
 	loadPaginator = new ArrayPaginator([], pageInfo);
 
-	return new CurrentPage(
+	return new LoadedPage(
 		loadPaginator, load2pgTranslator, pageLoadAccess
 	);
 }

@@ -9,7 +9,6 @@ import { LoadToPageTranslator } from '../load-to-page-translator';
 
 export class PageLoadAccess {
 
-
 	private __currentLoad: any[];
 
 
@@ -33,27 +32,40 @@ export class PageLoadAccess {
 
 
 	async getLoadContainingPage(pageNumber): Promise<any[]> {
-		if (this.__load2pgTranslator.loadContainsPage(
-			pageNumber, this.__loadInfo.getCurrentLoadNumber()
-		)) {
-			return this.__currentLoad;
-		}
+		if (this.__loadContainsPage(pageNumber)) return this.__currentLoad;
 		else return await this.getRefreshedLoadContainingPage(pageNumber);
 	}
 
 
 	async getRefreshedLoadContainingPage(pageNumber): Promise<any[]> {
-		this.__loadInfo.setCurrentLoadNumber(
-			this.__load2pgTranslator.getLoadNumberOfPage(pageNumber)
-		);
+		this.__setCurrentLoadNumber(this.__load2pgTranslator.getLoadNumberOfPage(pageNumber));
 
-		this.__currentLoad = await this.__dataSource.getLoad(
-			this.__loadInfo.getCurrentLoadNumber(),
-			this.__loadInfo.getItemsPerLoad(),
-			this.__loadInfo.currentLoadIsLast()
-		);
+		this.__currentLoad = await this.__dataSource.getLoad(...this.__getLoadParams());
 		return this.__currentLoad;
 	}
 
+
+	private __loadContainsPage(pageNumber) {
+		return (this.__load2pgTranslator.loadContainsPage(pageNumber, this.__getCurrentLoadNumber()));
+	}
+
+
+	private __getCurrentLoadNumber() {
+		return this.__loadInfo.getCurrentLoadNumber();
+	}
+
+
+	private __setCurrentLoadNumber(num) {
+		this.__loadInfo.setCurrentLoadNumber(num);
+	}
+
+
+	private __getLoadParams(): [number, number, boolean] {
+		return [
+			this.__loadInfo.getCurrentLoadNumber(),
+			this.__loadInfo.getItemsPerLoad(),
+			this.__loadInfo.currentLoadIsLast()
+		];
+	}
 
 }

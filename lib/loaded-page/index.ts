@@ -3,7 +3,7 @@ import { LoadToPageTranslator } from '../load-to-page-translator';
 
 // Intended to help a separate Paginator paginate data that can't all be stored in memory at once.
 
-export class CurrentPage {
+export class LoadedPage {
 
 	private __data = [];
 

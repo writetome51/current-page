@@ -1,4 +1,4 @@
-# CurrentPage
+# LoadedPage
 
 A TypeScript/Javascript class intended to help a separate Paginator  
 paginate data that can't all be stored in memory at once.
@@ -8,7 +8,7 @@ paginate data that can't all be stored in memory at once.
 ```ts
 // Use this factory function:
 
-getInstance_CurrentPage(
+getInstance_LoadedPage(
     params: {
         dataSource: {
 
@@ -34,7 +34,7 @@ getInstance_CurrentPage(
             getPagesPerLoad: () => number;
         };
     }
-): CurrentPage
+): LoadedPage
 ```
 
 
@@ -45,25 +45,25 @@ getInstance_CurrentPage(
 
 ```ts
 set(pageNumber): Promise<void>
-    // After calling this, get the page's data by calling this.get().
+    // After calling this, get the page's contents by calling this.get().
 
 reset(pageNumber): Promise<void>
-    // Even if `pageNumber` is already the current page, the 
+    // Even if `pageNumber` is already the loaded page, the 
     // data containing that page is reloaded from the source.
 
 get(): any[]
-    // returns the contents of the page.
+    // returns the page contents.
 ```
 </details>
 
 
 ## Installation
 
-`npm i @writetome51/current-page`
+`npm i @writetome51/loaded-page`
 
 ## Loading
 ```js
-import { CurrentPage, getInstance_CurrentPage } from '@writetome51/current-page';
+import { LoadedPage, getInstance_LoadedPage } from '@writetome51/loaded-page';
 ```
 
 ## License
