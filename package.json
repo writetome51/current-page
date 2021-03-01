@@ -1,6 +1,6 @@
 {
   "name": "@writetome51/loaded-page",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A TypeScript/Javascript class intended to help a separate Paginator paginate data that can't all be stored in memory at once",
   "type": "module",
   "main": "dist/index.js",

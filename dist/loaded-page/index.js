@@ -2,7 +2,6 @@
 
 export class LoadedPage {
 
-
 	constructor(__loadPaginator, __load2pgTranslator, __pageLoadAccess) {
 
 		this.__loadPaginator = __loadPaginator;
@@ -18,25 +17,31 @@ export class LoadedPage {
 
 
 	async set(pageNumber) {
-		await this.__getLoadAndSetPage(this.__pageLoadAccess.getLoadContainingPage, pageNumber);
+		await this.__getLoadAndSetPage('getLoadContainingPage', pageNumber);
 	}
 
 
 	async reset(pageNumber) {
-		await this.__getLoadAndSetPage(this.__pageLoadAccess.getRefreshedLoadContainingPage, pageNumber);
+		await this.__getLoadAndSetPage('getRefreshedLoadContainingPage', pageNumber);
 	}
 
 
-	async __getLoadAndSetPage(getLoad, pageNumber) {
-		let load = await getLoad.apply(this.__pageLoadAccess, [pageNumber]);
-		this.__setPage_fromLoad(load, pageNumber);
+	getNumber() {
+		return this.__number;
+	}
+
+
+	async __getLoadAndSetPage(getLoadFn, pageNumber) {
+			let load = await this.__pageLoadAccess[getLoadFn](pageNumber);
+			this.__setPage_fromLoad(load, pageNumber);
+			this.__number = pageNumber;
 	}
 
 
 	__setPage_fromLoad(load, pageNumber) {
 		this.__loadPaginator.data = load;
-
 		pageNumber = this.__load2pgTranslator.getPageNumberOfLoadFromAbsolutePage(pageNumber);
 		this.__data = this.__loadPaginator.getPage(pageNumber);
 	}
+
 }

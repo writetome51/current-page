@@ -48,11 +48,14 @@ set(pageNumber): Promise<void>
     // After calling this, get the page's contents by calling this.get().
 
 reset(pageNumber): Promise<void>
-    // Even if `pageNumber` is already the loaded page, the 
+    // Even if 'pageNumber' is already the loaded page, the 
     // data containing that page is reloaded from the source.
 
 get(): any[]
     // returns the page contents.
+
+getNumber(): number
+    // returns page number.
 ```
 </details>
 

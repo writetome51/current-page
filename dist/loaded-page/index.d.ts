@@ -8,6 +8,7 @@ export declare class LoadedPage {
 	private __load2pgTranslator;
 	private __pageLoadAccess;
 	private __data;
+	private __number;
 
 
 	constructor(
@@ -21,6 +22,9 @@ export declare class LoadedPage {
 
 
 	get(): any[];
+
+
+	getNumber(): number;
 
 
 	set(pageNumber: number): Promise<void>;

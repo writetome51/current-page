@@ -7,6 +7,7 @@ import { PageLoadAccess } from '../page-load-access';
 export class LoadedPage {
 
 	private __data = [];
+	private __number: number;
 
 
 	constructor(
@@ -27,23 +28,24 @@ export class LoadedPage {
 
 
 	async set(pageNumber): Promise<void> {
-		await this.__getLoadAndSetPage(this.__pageLoadAccess.getLoadContainingPage, pageNumber);
+		await this.__getLoadAndSetPage('getLoadContainingPage',  pageNumber);
 	}
 
 
 	async reset(pageNumber): Promise<void> {
-		await this.__getLoadAndSetPage(
-			this.__pageLoadAccess.getRefreshedLoadContainingPage, pageNumber
-		);
+		await this.__getLoadAndSetPage('getRefreshedLoadContainingPage',  pageNumber);
 	}
 
 
-	private async __getLoadAndSetPage(
-		getLoad: (pageNumber) => Promise<any[]>,
-		pageNumber
-	) {
-		let load = await getLoad.apply(this.__pageLoadAccess, [pageNumber]);
+	getNumber(): number {
+		return this.__number;
+	}
+
+
+	private async __getLoadAndSetPage(getLoadFn: string, pageNumber) {
+		let load = await this.__pageLoadAccess[getLoadFn](pageNumber);
 		this.__setPage_fromLoad(load, pageNumber);
+		this.__number = pageNumber;
 	}
 
 
@@ -53,6 +55,5 @@ export class LoadedPage {
 
 		this.__data = this.__loadPaginator.getPage(pageNumber);
 	}
-
 
 }
