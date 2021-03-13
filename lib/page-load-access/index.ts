@@ -26,7 +26,7 @@ export class PageLoadAccess {
 
 
 	async getLoadContainingPage(pageNumber): Promise<any[]> {
-		if (this.__loadContainsPage(pageNumber)) return this.__currentLoad;
+		if (this.__currentLoadContainsPage(pageNumber)) return this.__currentLoad;
 		else return await this.getRefreshedLoadContainingPage(pageNumber);
 	}
 
@@ -39,8 +39,8 @@ export class PageLoadAccess {
 	}
 
 
-	private __loadContainsPage(pageNumber) {
-		return (this.__load2pgTranslator.loadContainsPage(pageNumber, this.__getCurrentLoadNumber()));
+	private __currentLoadContainsPage(pageNumber) {
+		return (this.__load2pgTranslator.loadContainsPage(this.__getCurrentLoadNumber(), pageNumber));
 	}
 
 

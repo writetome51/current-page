@@ -28,6 +28,7 @@ export class LoadedPage {
 
 
 	async set(pageNumber): Promise<void> {
+		if (pageNumber === this.__number) return;
 		await this.__getLoadAndSetPage('getLoadContainingPage',  pageNumber);
 	}
 

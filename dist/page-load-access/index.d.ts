@@ -28,4 +28,10 @@ export declare class PageLoadAccess {
 
 	getRefreshedLoadContainingPage(pageNumber: number): Promise<any[]>;
 
+
+	private __currentLoadContainsPage;
+	private __getCurrentLoadNumber;
+	private __setCurrentLoadNumber;
+	private __getLoadParams;
+
 }

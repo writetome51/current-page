@@ -17,6 +17,7 @@ export class LoadedPage {
 
 
 	async set(pageNumber) {
+		if (pageNumber === this.__number) return;
 		await this.__getLoadAndSetPage('getLoadContainingPage', pageNumber);
 	}
 
@@ -32,9 +33,9 @@ export class LoadedPage {
 
 
 	async __getLoadAndSetPage(getLoadFn, pageNumber) {
-			let load = await this.__pageLoadAccess[getLoadFn](pageNumber);
-			this.__setPage_fromLoad(load, pageNumber);
-			this.__number = pageNumber;
+		let load = await this.__pageLoadAccess[getLoadFn](pageNumber);
+		this.__setPage_fromLoad(load, pageNumber);
+		this.__number = pageNumber;
 	}
 
 

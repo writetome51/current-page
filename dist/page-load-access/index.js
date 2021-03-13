@@ -1,7 +1,6 @@
 export class PageLoadAccess {
 
 	constructor(__dataSource, __loadInfo, __load2pgTranslator) {
-
 		this.__dataSource = __dataSource;
 		this.__loadInfo = __loadInfo;
 		this.__load2pgTranslator = __load2pgTranslator;
@@ -9,21 +8,20 @@ export class PageLoadAccess {
 
 
 	async getLoadContainingPage(pageNumber) {
-		if (this.__loadContainsPage(pageNumber)) return this.__currentLoad;
+		if (this.__currentLoadContainsPage(pageNumber)) return this.__currentLoad;
 		else return await this.getRefreshedLoadContainingPage(pageNumber);
 	}
 
 
 	async getRefreshedLoadContainingPage(pageNumber) {
 		this.__setCurrentLoadNumber(this.__load2pgTranslator.getLoadNumberOfPage(pageNumber));
-
 		this.__currentLoad = await this.__dataSource.getLoad(...this.__getLoadParams());
 		return this.__currentLoad;
 	}
 
 
-	__loadContainsPage(pageNumber) {
-		return (this.__load2pgTranslator.loadContainsPage(pageNumber, this.__getCurrentLoadNumber()));
+	__currentLoadContainsPage(pageNumber) {
+		return (this.__load2pgTranslator.loadContainsPage(this.__getCurrentLoadNumber(), pageNumber));
 	}
 
 

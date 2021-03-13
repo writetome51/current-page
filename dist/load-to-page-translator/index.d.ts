@@ -3,8 +3,9 @@
  be stored in memory all at once.  The amount of data that can stored in memory at
  once is referred to here as a 'load', which can be multiple pages of data.
 
- An example: if the user is clicking thru pagination controls and clicks to page 10, it's this
- class' job to figure out which load page 10 is in and tell the Paginator what page to show.
+ An example: if the user is clicking thru pagination controls and clicks to page 10,
+ it's this class' job to figure out which load page 10 is in and tell the Paginator
+ what page of that load to show.
  *******************/
 
 export declare class LoadToPageTranslator {
@@ -14,9 +15,7 @@ export declare class LoadToPageTranslator {
 
 
 	constructor(
-		__pageInfo: {
-			getTotalPages: () => number;
-		},
+		__pageInfo: { getTotalPages: () => number; },
 		__loadInfo: {
 			getCurrentLoadNumber: () => number;
 			getPagesPerLoad: () => number;
@@ -26,7 +25,9 @@ export declare class LoadToPageTranslator {
 
 	getLoadNumberOfPage(pageNumber: number): number;
 
-	loadContainsPage(pageNumber: number, loadNumber: number): boolean;
+
+	loadContainsPage(loadNumber: number, pageNumber: number): boolean;
+
 
 	getPageNumberOfLoadFromAbsolutePage(pageNumber: number): number;
 

@@ -26,7 +26,6 @@ export class LoadToPageTranslator {
 		let totalPages = this.__pageInfo.getTotalPages();
 		if (totalPages < 1)
 			throw new Error('There is no load to get because the total number of pages is 0');
-
 		if (not(inRange([1, totalPages], pageNumber))) {
 			throw new Error('The requested page does not exist.');
 		}
@@ -34,11 +33,9 @@ export class LoadToPageTranslator {
 	}
 
 
-	loadContainsPage(pageNumber, loadNumber) {
+	loadContainsPage(loadNumber, pageNumber) {
 		if (noValue(loadNumber)) return false;
-
-		let correctLoadNumber = this.getLoadNumberOfPage(pageNumber);
-		return (loadNumber === correctLoadNumber);
+		return (loadNumber === this.getLoadNumberOfPage(pageNumber));
 	}
 
 
@@ -48,7 +45,7 @@ export class LoadToPageTranslator {
 
 	getPageNumberOfLoadFromAbsolutePage(pageNumber) {
 		let loadNumber = this.__loadInfo.getCurrentLoadNumber();
-		if (not(this.loadContainsPage(pageNumber, loadNumber))) {
+		if (not(this.loadContainsPage(loadNumber, pageNumber))) {
 			throw new Error(`The current load does not contain the requested page`);
 		}
 		return (pageNumber - ((loadNumber - 1) * this.__loadInfo.getPagesPerLoad()));

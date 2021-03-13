@@ -24,15 +24,16 @@ export declare class LoadedPage {
 	get(): any[];
 
 
-	getNumber(): number;
-
-
 	set(pageNumber: number): Promise<void>;
 
 
 	reset(pageNumber: number): Promise<void>;
 
 
+	getNumber(): number;
+
+
 	private __getLoadAndSetPage;
 	private __setPage_fromLoad;
+
 }
